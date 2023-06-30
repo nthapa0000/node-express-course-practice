@@ -4,6 +4,9 @@ const http = require('http');
 const { readFileSync } = require('fs');
 // get all files 
 const homePage = readFileSync('./navbar-app/index.html');
+const homeStyle = readFileSync('./navbar-app/styles.css');
+const homeImage = readFileSync('./navbar-app/logo.svg');
+const homeLogic = readFileSync('./navbar-app/browser-app.js');
 // we will see that our css are not appplied  and icon is missing 
 // now we will use this inside the write , when client request for the homepage  
 
@@ -55,6 +58,27 @@ const server = http.createServer((req, res) => {
         // we can also pass status message
         res.write('<h1>about page</h1>');
         // we can also pass the file , content of the file, using the file system module
+        res.end();
+
+    }
+    else if(url === '/styles.css'){
+// styles
+        res.writeHead(200, { 'content-type': 'text/css' });
+        res.write(homeStyle);
+        res.end();
+
+    }
+    else if(url === '/logo.svg'){
+// image
+        res.writeHead(200, { 'content-type': 'image/svg+xml' });
+        res.write(homeImage);
+        res.end();
+
+    }
+    else if(url === '/browser-app.js'){
+// logic
+        res.writeHead(200, { 'content-type': 'text/javascript' });
+        res.write(homeLogic);
         res.end();
 
     }else{
